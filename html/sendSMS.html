@@ -1,0 +1,131 @@
+<html>
+<head>
+<script type="text/javascript" src="/lib/ZSDK.js"></script>
+<script type="text/javascript" src="/lib/ZohoCrmHelper.js"></script>
+<script type="text/javascript" src="../lib/handlebars.js"></script>
+<script type="text/javascript" src="../js/Handler.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<script>
+	$(document).ready(function() {
+		ZOHO.embeddedApp.on("PageLoad", Handler.CreateSMS)
+		ZOHO.embeddedApp.init()
+	});
+</script>
+</head>
+<body>
+	<div id="loadingDiv" style="display: none">
+		<div class="loadingBG">&nbsp;</div>
+		<div class="loadingText">Loading...</div>
+	</div>
+	<div class="successMsg" style="display: none"></div>
+	<div id="contentDiv"></div>
+<script id='ComposeSMS' type='text/x-handlebars-template'>
+	<div class="pageContent" style="margin-left: 14%;">
+		<form id="sendsms_form" method="post" class="form-style-1" onsubmit="return false;" enctype="multipart/form-data">
+			<div id="printPreviewPop" class="whiteBg" style="margin: 0 auto;">
+				<div class="inner-section">
+					<table class="smsform_table">
+						<tbody>
+							<tr>
+								<td colspan="2">
+									<div id="fromno">
+										<label for="fromnums">From:</label> {{#unless numbers}}
+										<div>No SMS Numbers Available in Message360</div>
+										{{/unless}} {{#if numbers}} <select id="fromnums"> {{#each numbers}}
+											<option value="{{PhoneNumber}}">{{FriendlyName}} : {{PhoneNumber}}</option> {{/each}}
+										</select> {{/if}}
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2"><label for="num">Recipients:</label>
+									<table id="recipientTable" class="recipients_tbl" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #e0e3e5; background-color: #fff; width: 100%;">
+										<thead>
+											<tr class="headerRow">
+												<th>
+													<div>Name</div>
+												</th>
+												<th>
+													<div>Mobile</div>
+												</th>
+												<th>
+													<div>Remove</div>
+												</th>
+											</tr>
+											{{#if recipients}} {{#each recipients}}
+											<tr class="dataRow" id="recepient_{{@index}}">
+												<td>{{Full_Name}}</td>
+												<td>{{Mobile}}</td>
+												<td><a href="javascript:void(0)" onclick="Utils.removeRecepient(this);">Remove</a></td>
+											</tr>
+											{{/each}} {{/if}}
+										</thead>
+									</table></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<table class="constructUrLInk" style="margin-top: 15px;">
+										<tbody>
+											<tr>
+												<td colspan="3">
+													<div class="field w100per">
+														<textarea id="message" style="height: 150px;" maxlength="400"></textarea>
+														<div style="font-size: 12px;">
+															<span class="bold">Note:</span>Max 400 Characters allowed
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</form>
+		<div class="error_msg" id="error_msg" style="display: none">
+			<ul style="padding: 0; margin: 0" id="errors"></ul>
+		</div>
+	</div>
+	<div class="pageBottom mT30">
+		<div class="fR">
+			<input type="button" value="Cancel" class="btn normalbtn cancelbtn" onclick="Handler.closePopUp()"> 
+			<input type="button" value="Send" class="btn primarybtn sendbtn" onclick="Handler.SendSMS()">
+		</div>
+	</div>
+</script>
+<script id='SMSSummary' type='text/x-handlebars-template'>
+	<div style="padding-top: 25px;padding-left: 26px;">SMS Summary:</label>
+	<table id="recipientTable" class="recipients_tbl" border="0" cellpadding="0" cellspacing="0" style="border: 0px solid #e0e3e5; background-color: #fff; width: 100%;padding: 25px !important;">
+		<thead>
+			<tr class="headerRow">
+				<th>
+					<div>Name</div>
+				</th>
+				<th>
+					<div>Mobile</div>
+				</th>
+				<th>
+					<div>Status</div>
+				</th>
+			</tr>
+			{{#each data}}
+			<tr class="dataRow" id="recepient_{{@index}}">
+				<td>{{Name}}</td>
+				<td>{{Mobile}}</td>
+				<td>{{Status}}</td>
+			</tr>
+			{{/each}}
+		</thead>
+	</table>
+	<div class="pageBottom mT30">
+		<div style="float: left;margin-left: 46%;">
+			<input type="button" value="Close" class="btn normalbtn cancelbtn" onclick="Handler.closePopUp(true)"> 
+		</div>
+	</div>
+</script>
+</body>
+</html>
