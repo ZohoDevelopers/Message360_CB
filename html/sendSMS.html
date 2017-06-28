@@ -1,131 +1,149 @@
 <html>
 <head>
-<script type="text/javascript" src="/lib/ZSDK.js"></script>
-<script type="text/javascript" src="/lib/ZohoCrmHelper.js"></script>
-<script type="text/javascript" src="../lib/handlebars.js"></script>
-<script type="text/javascript" src="../js/Handler.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/style.css" />
-<script>
-	$(document).ready(function() {
-		ZOHO.embeddedApp.on("PageLoad", Handler.CreateSMS)
-		ZOHO.embeddedApp.init()
-	});
-</script>
+<title>Create Template</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../css/templatestyle.css"> 
+<link rel="stylesheet" type="text/css" href="../css/sendSMSstyle.css"> 
+ <script type="text/javascript" src="../lib/ZohoEmbededAppSDK.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/handlebars-v4.0.10.js"></script>
+    <script type="text/javascript" src="../js/createTemp.js"></script>
 </head>
+<style type="text/css">
+    form{
+        border: none;
+    }
+</style>
 <body>
-	<div id="loadingDiv" style="display: none">
-		<div class="loadingBG">&nbsp;</div>
-		<div class="loadingText">Loading...</div>
+<div id="loading" style="display: none;">
+        <div class="loadBG"></div>
+        <div class="load"></div>
+    </div>
+    <div id="create" style="display: none;">
+	<div class="popapulbg" >
+	<div class="popapul">
+    <form id="templateForm" method="get" action="" onsubmit="return false;">
+	<h1 class="head" onclick="skip()">Create Template</h1>
+	<div class="filed clearfix"><label class="fldText">Template Name</label><input class="fldtype" type="text" name="" id="templateName" required /></div>
+	<div class="fldMsg clearfix">
+	<label class="fldText Text1">Message</label>
+	<span class="fldSelect clearfix"><i class="sltText">Select Field</i>
+
+	<div class="newSelect" id="fieldnames"></div>
+				<script id="fieldsList" type="text/x-handlebars-template">
+                    <div>
+                        <select id="selectOption" onclick="addField()" class="sltInput">
+                            {{#each fields}}
+    						<option>{{api_name}}</option>
+                            {{/each}}
+   						</select>
+   					</div>
+                  </script>
+			
+
+	</span>
 	</div>
-	<div class="successMsg" style="display: none"></div>
-	<div id="contentDiv"></div>
-<script id='ComposeSMS' type='text/x-handlebars-template'>
-	<div class="pageContent" style="margin-left: 14%;">
-		<form id="sendsms_form" method="post" class="form-style-1" onsubmit="return false;" enctype="multipart/form-data">
-			<div id="printPreviewPop" class="whiteBg" style="margin: 0 auto;">
-				<div class="inner-section">
-					<table class="smsform_table">
-						<tbody>
-							<tr>
-								<td colspan="2">
-									<div id="fromno">
-										<label for="fromnums">From:</label> {{#unless numbers}}
-										<div>No SMS Numbers Available in Message360</div>
-										{{/unless}} {{#if numbers}} <select id="fromnums"> {{#each numbers}}
-											<option value="{{PhoneNumber}}">{{FriendlyName}} : {{PhoneNumber}}</option> {{/each}}
-										</select> {{/if}}
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2"><label for="num">Recipients:</label>
-									<table id="recipientTable" class="recipients_tbl" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #e0e3e5; background-color: #fff; width: 100%;">
-										<thead>
-											<tr class="headerRow">
-												<th>
-													<div>Name</div>
-												</th>
-												<th>
-													<div>Mobile</div>
-												</th>
-												<th>
-													<div>Remove</div>
-												</th>
-											</tr>
-											{{#if recipients}} {{#each recipients}}
-											<tr class="dataRow" id="recepient_{{@index}}">
-												<td>{{Full_Name}}</td>
-												<td>{{Mobile}}</td>
-												<td><a href="javascript:void(0)" onclick="Utils.removeRecepient(this);">Remove</a></td>
-											</tr>
-											{{/each}} {{/if}}
-										</thead>
-									</table></td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<table class="constructUrLInk" style="margin-top: 15px;">
-										<tbody>
-											<tr>
-												<td colspan="3">
-													<div class="field w100per">
-														<textarea id="message" style="height: 150px;" maxlength="400"></textarea>
-														<div style="font-size: 12px;">
-															<span class="bold">Note:</span>Max 400 Characters allowed
-														</div>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</form>
-		<div class="error_msg" id="error_msg" style="display: none">
-			<ul style="padding: 0; margin: 0" id="errors"></ul>
-		</div>
+	<textarea class="msgBox" id="templateTxt" required></textarea>
+	<div class="link"><button class="btn save" onclick="update()">Save</button><button class="btn cancel" onclick="skip()">Cancel</button></div>
+    </form>
+    <script type="text/javascript">
+        $("#templateForm").validate();
+    </script>
 	</div>
-	<div class="pageBottom mT30">
-		<div class="fR">
-			<input type="button" value="Cancel" class="btn normalbtn cancelbtn" onclick="Handler.closePopUp()"> 
-			<input type="button" value="Send" class="btn primarybtn sendbtn" onclick="Handler.SendSMS()">
-		</div>
 	</div>
-</script>
-<script id='SMSSummary' type='text/x-handlebars-template'>
-	<div style="padding-top: 25px;padding-left: 26px;">SMS Summary:</label>
-	<table id="recipientTable" class="recipients_tbl" border="0" cellpadding="0" cellspacing="0" style="border: 0px solid #e0e3e5; background-color: #fff; width: 100%;padding: 25px !important;">
-		<thead>
-			<tr class="headerRow">
-				<th>
-					<div>Name</div>
-				</th>
-				<th>
-					<div>Mobile</div>
-				</th>
-				<th>
-					<div>Status</div>
-				</th>
-			</tr>
-			{{#each data}}
-			<tr class="dataRow" id="recepient_{{@index}}">
-				<td>{{Name}}</td>
-				<td>{{Mobile}}</td>
-				<td>{{Status}}</td>
-			</tr>
-			{{/each}}
-		</thead>
-	</table>
-	<div class="pageBottom mT30">
-		<div style="float: left;margin-left: 46%;">
-			<input type="button" value="Close" class="btn normalbtn cancelbtn" onclick="Handler.closePopUp(true)"> 
-		</div>
 	</div>
-</script>
+	<div id="getTemp">
+<div class="popapulbg">
+	<div class="popapul">
+
+<div class="filed clearfix">
+		<label class="fldText">Select Your Number</label>
+				 <div id="listNumbers" class="newSelect" style="margin-left: 40px;"></div>
+                                <script type="text/x-handlebars-template" id="fromNum">
+                                    <select id="toNumber" class="fldtype">
+                                    {{#unless Phone}}<option>No Phone Numbers Found</option>{{/unless}}
+                    {{#each Phone}}
+                        <option value={{PhoneNumber}}>
+                            {{FriendlyName}}:{{PhoneNumber}}
+                        </option>
+                    {{/each}}
+                    </select>
+                                </script>
+	</div>
+	
+<div class="resipient">
+	<label class="fldText">Recipients</label>
+	<ul class="contact" id="recipientsList">
+	</ul>
+	<a href="#" class="Textbtn" id="view">+View More</a>
+	</div>
+
+
+<div class="filed1 clearfix">
+	<div class="first"><label class="fldText">Choose a Template</label>
+			<div id="templist" class="newSelect"></div>
+                                <script type="text/x-handlebars-template" id="templates">
+                                    <div style="float: left;" id="listTemplatesDiv">
+                                        <select id="temp" onclick="listTemplates()" class="fldtype1">
+
+                {{#each obj}}
+                <option value={{id}}>{{[message360sruthy.CustomModule1_Name]}}</option>
+                {{/each}}
+                                                       <option id="none">--None--</option>
+   
+            </select>
+                                    </div>
+                                </script>
+	</div>
+	<div class="two"><button class="addbtn" onclick="addTemp()" style="cursor: pointer;">Create Template</button></div>
+	</div>
+
+<div class="fldMsg clearfix"><label class="fldText Text1">Message</label></div>
+	<textarea class="msgBox" id="msgTxt"></textarea>
+	<div class="link">
+	<button class="btn save" onclick="sendsms()">Send</button>
+	<button class="btn cancel" onclick="closePopUp(true)">Cancel</button>
+	</div>
+
+	</div>
+	</div>
+	</div>
+	<div style="z-index: 999999 " id="statusReport"></div>
+    <script type="text/x-handlebars-template" id="reportScript">
+        <div id="report" style="display: none;">
+            <div style="background-color: #ffffff"></div>
+            <div>
+                <h1 style="padding-top: 25px;padding-left: 26px;">SMS Summary</h1>
+                <table class="recipients_tbl" border="0" cellpadding="0" cellspacing="0" style="border: 0px solid #e0e3e5; background-color: #ffffff; width: 100%;padding: 25px !important;">
+                    <thead>
+                        <tr class="headerRow">
+                            <th>
+                                <div>Name</div>
+                            </th>
+                            <th>
+                                <div>Mobile</div>
+                            </th>
+                            <th>
+                                <div>Status</div>
+                            </th>
+                        </tr>
+                        {{#each data}}
+                        <tr class="dataRow">
+                            <td>{{Name}}</td>
+                            <td>{{Mobile}}</td>
+                            <td>{{Status}}</td>
+                        </tr>
+                        {{/each}}
+                    </thead>
+                </table>
+            </div>
+            <div style="padding-left: 500px;">
+                <input type="button" value="Cancel" class="btn normalbtn cancelbtn" onclick="closePopUp(true)">
+                <input type="button" value="Back" class="btn primarybtn sendbtn" onclick="skip()">
+            </div>
+            </div>
+    </script>
+    </div>
 </body>
 </html>

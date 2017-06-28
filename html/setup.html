@@ -1,0 +1,379 @@
+<!doctype html>
+<html>
+<head>
+<link href="https://www.zoho.com/lp/fonts/proxima-nova/stylesheet.css" rel="stylesheet" type="text/css">
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../css/style.css"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/ZohoEmbededAppSDK.min.js"></script>
+<script type="text/javascript" src="../lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../lib/handlebars-v4.0.10.js"></script>
+<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../js/msg360Webtab.js"></script>
+ 
+ <script type="text/javascript">
+
+function showtab(id, obj) {
+	$(".activeTab").removeClass();
+	$('.tab-body').hide();	
+	$('#' + id).show();
+	$(obj).addClass("activeTab");
+	}
+ </script>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+*
+{
+	padding:0;
+	margin:0;
+}
+body {
+	font-family: 'proxima_nova_rgregular', Gotham, Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size:16px;
+}
+form{
+	border: none;
+}
+.tab-body
+{
+	display:none;
+}
+ul, li
+{
+	list-style-type:none;
+}
+/********************        Tab style start here **************/
+.tab-link li
+{
+	float:left;
+}
+.tab-link a
+{
+	padding:9px 20px;
+	text-decoration:none;
+	color:#444;
+	float:left;
+	border-bottom: solid 1px #e4e4e4;
+	border-left: solid 1px #fff;
+	border-right: solid 1px #fff;
+	border-top: solid 2px #fff;
+	
+}
+.tab-link a.activeTab
+{
+	border-bottom: solid 1px #fff;
+	border-left: solid 1px #e4e4e4;
+	border-right: solid 1px #e4e4e4;
+	border-top: solid 2px #2c7bd0;
+}
+.tab-link
+{
+	border-top:solid 1px #e4e4e4;
+	margin-top:20px;
+	overflow:auto;
+}
+.activeTab
+{
+	/*border-bottom: solid 6px #ddd;*/
+}
+/********************        end style start here **************/
+
+
+
+
+
+a,input,select{text-decoration:none; outline: none; border: 0px;}
+ul li, ol li{list-style:none;}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+.popapulbg{width:800px;height: 360px; background:#fff; margin:0 auto;}
+.popapul{padding:0 50px; position: relative;}
+.head{font-size: 20px; color: #000;padding:0 0 25px 0; display: inline-block; margin-left: 30px;}
+.head::before{content: ""; width: 25px; height: 20px; background-image: url(../img/icon-message.png); left: 50px; top: 48px; background-position: -55px 98px; position: absolute; cursor: pointer;}
+.filed{padding:15px 0; background:transparent; border-bottom:1px solid #e8e8e8;}
+.fldText{ width:55%; font-size: 16px; color: #000; display: inline-block;margin-top:12px;}
+.fldtype{ width:48%; background:#fff; outline:none; padding:10px; float: right; font-size: 16px; color: #666; border-bottom:1px solid #42a2eb; display: inline-block;}
+.fldtype:hover{border-bottom:1px solid #333;}
+
+
+
+.save, .cancel{  padding:12px 15px;font-size: 14px;color:#333; letter-spacing: .8px; border-radius: 2px;outline: none; cursor: pointer;}
+.save{background: #42a2eb; color:#fafafa;border: 1px solid #42a2eb;}
+.cancel{border: 1px solid #abaaaa; color:#663c3c; background: transparent;}
+
+.FL
+{
+	float:left;
+}
+.FR
+{
+	float:right;
+}
+.save:hover{background:#3c98dd; border-bottom:1px solid #1b70b0;}
+.cancel:hover{color:#111;}
+.link
+{
+	margin-top:30px;
+}
+.mL10
+{
+	margin-left:10px;
+}
+
+
+/***************   balance **************/
+.box{width:100%;padding:30px; background: #fafafa; border:1px solid #eee; border-radius:2px; box-sizing: border-box;}
+.text{font-size:20px; color:#222; margin-top:10px;}
+.num{font-size:30px;font-weight: 600; color:#0dc26f; margin:20px 0; display: block;}
+.primary{width:230px; padding:0; display: inline-block; border-right:1px solid #eaeaea;}
+.Redbtn{
+	    padding: 12px 25px;
+    background: #ed2c27;
+    border-radius: 2px;
+    border: 1px solid #f00;
+    display: inline-block;
+    vertical-align: top;
+    margin: 25px 0 0 40px;
+    font-size: 20px;
+    color: #fff;
+	}
+.btntext{color:#fafafa; font-size: 14px;}
+
+
+
+
+
+
+
+
+
+/************ numbers **********/
+.clearfix { display: block; }
+.disB{display: block;}
+.flt{float: left;}
+.flr{float:right;}
+.disIB{display: inline-block;}
+.popapulbg{width:800px;height: 530px; background:#fff; margin:0 auto;}
+.popapul{padding:40px;}
+.fldText{ width:70%; font-size: 16px; color: #000; float:left; margin-top:12px;}
+.btn{padding:12px 15px; font-size: 14px; letter-spacing: .8px; border-radius: 2px;outline: none; border:1px solid transparent; cursor: pointer; box-sizing: border-box;}
+.Bluebtn{background: #42a2eb; margin-left:20px; margin-top: 30px; float: right; color:#fafafa;}
+.Bluebtn:hover{background:#3c98dd; border-bottom-color: #1b70b0;}
+.box{width:100%;padding:30px; background: #fff; border:1px solid #eee; border-radius:2px; box-sizing: border-box;}
+.serialnum{font-size:30px; color:#000;font-weight: bold;}
+.nameText{font-size:14px; color:#666; margin-top:15px;} 
+.value{font-size:14px; color:#111; margin-top:15px; margin-left:10px;}
+.sms, .call{width: 25px; height: 23px; background-image: url(../img/number.png); background-repeat: no-repeat; background-position: -13px -66px;margin-left: 10px; display: inline-block;}
+.sms::after, .call::after{content:"Message"; font-size:14px; color:#333; margin:10px 0px 0px 35px; }
+.call::after{content: "Voice";}
+.call{background-position: -13px -12px;}
+.contact{width: 100%; padding:15px 15px 10px 15px; background:#fafafa; border:1px solid #eee; box-sizing: border-box; border-top:0px;}
+.Redbtn{padding:12px 25px; background: #f00; border-radius: 2px; border:1px solid #f00; display: inline-block; vertical-align: top; margin:20px 0 0 30px;}
+.btntext{color:#fafafa; font-size: 14px;}
+
+/*******************  Available numbers table *******/
+.headerRow th {
+    background: #f2f3f3;
+    border-width: 0 0 1px 1px;
+    border-color: #e0e3e5;
+    color: #000;
+    font-size: .9em;
+    font-weight: bold;
+    padding: 7px 10px 7px 10px;
+    text-align: left;
+}
+
+.dataRow td {
+    vertical-align: middle;
+    padding: 4px 2px 4px 5px;
+    color: #333;
+    padding: 10px 10px 10px 10px !important;
+    border-top: 1px solid #efefef;
+}
+
+</style>
+</head>
+
+<body>
+<div style="margin: 0 20px;">
+<div class="tab-link">
+<ul>
+	<li>
+    	<a href="javascript:;" onClick="showtab('tab1',this)" class="activeTab">Authentication</a>
+    </li>
+    <li>
+    	<a href="javascript:;" id="balance" onClick="showtab('tab2',this)">Balance</a>
+    </li>
+     <li>
+    	<a href="javascript:;" onClick="showtab('tab3',this)">Numbers</a>
+    </li>
+   
+     <li style="float: none;border-bottom: solid 1px #e4e4e4;overflow: auto;padding-top:20px;">
+    	&nbsp;	
+	  </li>
+</ul>
+</div>
+
+<div style="clear:both;padding-top:30px;border:solid 1px #e4e4e4;border-top:none;overflow: auto;padding-bottom:30px;">
+
+<div id="tab1" class="tab-body" style="display:block;">
+	<div class="popapul">
+
+	<div class="filed clearfix">
+	<label class="fldText">Enter these Details to authenticate this extension</label>
+	<div id="edit" style="display: none;"><input class="cancel FR" type="button" name="Edit" value="Edit" onclick="showInput()" /></div>
+	</div>
+	<form id="authentication" method="get" action="" onsubmit="return false;">
+		<div class="filed clearfix" style="padding-bottom:0px;">
+		<label class="fldText" style="width:30%;">Account SID</label>
+		<div id="accntSidDefult"></div>
+		</div>
+
+			
+         <div class="filed clearfix" style="padding-bottom:0px;">
+		<label class="fldText" style="width:30%;">Auth Token</label>
+		<div id="authTokenDefult"></div>
+		</div>
+
+	<div class="link" id="saveNcancel" style="display: none;">
+	<button class="save FR mL10" onclick="saveOrgVar()">Save</button>
+	<button class="cancel FR" onclick="reloadWebtab()">Cancel</button>
+	</div>
+	</form>
+<script type="text/javascript">
+	$("#authentication").validate();
+</script>
+	</div>
+</div>
+
+
+<div id="tab2" class="tab-body">
+
+	<div class="popapul">
+<div class="box">
+
+<div class="primary">
+	<p class="text">Account balance</p>
+	<span class="num" id="accntBalance"></span>
+	</div>
+	
+	<a href="https://portal.message360.com/docs/v2/Billing/addfunds" class="Redbtn" target="_blank">ADD FUNDS</a>
+</div>
+</div>	
+</div>
+<div id="tab3" class="tab-body">
+
+
+
+<div class="popapul" id="num">
+<div class="clearfix">
+	<label class="fldText">You are currently using these numbers to send messages.</label>
+	<input class="btn Bluebtn"  style="margin-top:0px;" type="button" name="Edit" value="Purchase number" onclick="listAvailableNumbers()" />
+</div>
+<div id="listNumbers"></div>
+<script type="text/x-handlebars-template" id="phoneNumbers">
+{{#unless Phone}}
+<div>No SMS Numbers Available in Message360</div>
+{{/unless}}
+<table id="phTable">
+{{#if Phone}}{{#each Phone}}
+<tr>
+<td>
+<div style="width: 1150px;">
+<div class="box clearfix">
+<div class="flt">
+	<span class="serialnum disB" id="phNO">{{PhoneNumber}}</span>
+	<label class="nameText disIB">Friendly Name :</label><span id="fNameSpan" value={{FriendlyName}}><span class="value disIB" id="fName">{{FriendlyName}}</span></span>
+	</div>
+
+<div class="flr">
+	<label class="nameText disB" style="margin-top:10px;">Renewal date</label>
+		<span class="serialnum disB" style="font-size: 20px; margin-top:15px;">{{DateofRenewal}}</span>
+</div>
+</div>
+<div class="contact">
+	<label class="nameText">Enabled :</label>
+	{{#if_eq SmsEnable "true"}} 
+	<span class="sms"></span> 
+	{{/if_eq}}
+    {{#if_eq VoiceEnable "true"}}
+	<span class="call" style="margin-left: 100px;"></span>
+    {{/if_eq}}
+
+</div>
+</div>
+</td>
+</tr>
+{{/each}} {{/if}}
+</script>
+	
+</div>
+ <div style="z-index: 999999 " id="showAvailableNumbers"></div>
+    <script type="text/x-handlebars-template" id="availableNumbers">
+        <div id="availNum" style="display: none;">
+            <div style="background-color: #ffffff"></div>
+            <div>
+                <h1 style="padding-top: 25px;padding-left: 26px;">Available Numbers</h1>
+                <div style="padding-left: 1125px;"><input type="button" value="Back" class="btn" onclick="reloadWebtab()"></div>
+                <table border="0" cellpadding="0" cellspacing="0" style="border: 0px solid #e0e3e5; background-color: #ffffff; width: 100%;padding: 25px !important;" id="availableNumbersTable">
+                    <thead>
+                        <tr class="headerRow">
+                            <th>
+                                <div>Number</div>
+                            </th>
+                            <th>
+                                <div>Monthly Cost</div>
+                            </th>
+                            <th>
+                                <div>Inbound Call Price</div>
+                            </th>
+                            <th>
+                                <div>Outbound Call Price</div>
+                            </th>
+                            <th>
+                                <div>SMS Enabled</div>
+                            </th>
+                            <th>
+                                <div>Voice Enabled</div>
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>{{#unless Phone}}
+                            <td>No SMS Numbers Available in Message360</td>
+                            {{/unless}} </tr>
+                        {{#if Phone}}{{#each Phone}}
+                        <tr class="dataRow">
+                            <td style="padding-left:10px;">{{PhoneNumber}}</td>
+                            <td style="padding-left:10px;">{{MonthlyCost}}</td>
+                            <td style="padding-left:10px;">{{Price.InboundCallPrice}}</td>
+                            <td style="padding-left:10px;">{{Price.OutboundCallPrice}}</td>
+                            <td style="padding-left:10px;">
+                                {{#if_eq SmsEnabled "true"}} Yes {{else}} No {{/if_eq}}
+                            </td>
+                            <td style="padding-left:10px;">
+                                {{#if_eq VoiceEnabled "true"}} Yes {{else}} No {{/if_eq}}
+                            </td>
+                            <td><input type="button" value="Buy" class="btn Bluebtn" onclick="buyNumbers(this.parentNode.parentNode.rowIndex)"></td>
+                        </tr>
+                        {{/each}}{{/if}}
+                    </thead>
+                </table>
+                <div style="padding-left: 1125px;"><input type="button" value="Back" class="btn normalbtn cancelbtn" onclick="reloadWebtab()"></div>
+            </div>
+            </div>
+    </script>
+</div>
+</div>
+</body>
+</html>
