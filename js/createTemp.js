@@ -12,11 +12,12 @@ recepients = [];
 updates = [];
 names = [];
 utils={};
+
 $(document).ready(function() {
     ZOHO.embeddedApp.on("PageLoad", function(data) {
         $('#loading').show();
 var count=0;
-var n=0;
+utils.n=0;
         tab = "";
         for (var id in data.EntityId) {
             ZOHO.CRM.API.getRecord({
@@ -24,13 +25,13 @@ var n=0;
                     RecordID: data.EntityId[id]
                 })
                 .then(function(data) {
-                   n++;
+                   utils.n++;
                     names.push(data.Full_Name);
                     recepients.push({
                         "data": data
                     });
 
-                    if(n<=9)
+                    if(utils.n<=9)
                     {
                         tab='<li class="conlist" id="'+data.id+'"><span style="color:#222;">'+data.Full_Name+'</span><span class="ConText" onclick="deleteRow(this.id,this.parentNode.id)" id="'+count+'"></span></li>';
                         count++;
@@ -194,6 +195,10 @@ for(var k in recepients)
     recepients.splice(k, 1);
     $('#'+id).remove();
 }
+}
+if(recepients.length>=9){
+    document.getElementById(recepients[8].data.id).style.display="block";
+     $("#"+recepients[8].data.id).removeClass('hidden').addClass('conlist');
 }
 }
 }
