@@ -31,7 +31,7 @@ utils.n=0;
                         "data": data
                     });
 
-                    if(utils.n<=9)
+                    if(utils.n<=6)
                     {
                         tab='<li class="conlist" id="'+data.id+'"><span style="color:#222;">'+data.Full_Name+'</span><span class="ConText" onclick="deleteRow(this.id,this.parentNode.id)" id="'+count+'"></span></li>';
                         count++;
@@ -196,9 +196,9 @@ for(var k in recepients)
     $('#'+id).remove();
 }
 }
-if(recepients.length>=9){
-    document.getElementById(recepients[8].data.id).style.display="block";
-     $("#"+recepients[8].data.id).removeClass('hidden').addClass('conlist');
+if(recepients.length>=6){
+    document.getElementById(recepients[5].data.id).style.display="block";
+     $("#"+recepients[5].data.id).removeClass('hidden').addClass('conlist');
 }
 }
 }
@@ -278,7 +278,8 @@ function listTemplates() {
 }
 
 function skip() {
-    location.reload();
+    $("#create").hide();
+    $("#getTemp").show();
 }
 
 function sendsms() {
